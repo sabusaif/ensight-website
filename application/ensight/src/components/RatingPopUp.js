@@ -40,17 +40,22 @@ const RatingPopup = ({ title }) => {
 
   return (
     <div>
-      <h5 className="MovieUserRate" onClick={openModal}>
+      <h5
+        data-testid="open-rating-button"
+        className="MovieUserRate"
+        onClick={openModal}
+      >
         Rate
       </h5>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
+        ariaHideApp={false}
         contentLabel={`Rating Popup for ${title}`}
         className="RatingModal"
         overlayClassName="overlay"
       >
-        <div className="RatingPopUp">
+        <div data-testid="rating-popup" className="RatingPopUp">
           <img
             className="MovieSymbol CloseRatingSymbol"
             src={RedX}
@@ -85,7 +90,11 @@ const RatingPopup = ({ title }) => {
                 />
               ))}
           </div>
-          <button className="Button RatingButton" onClick={handleRateSubmit}>
+          <button
+            data-testid="submit-rating-button"
+            className="Button RatingButton"
+            onClick={handleRateSubmit}
+          >
             Rate
           </button>
         </div>

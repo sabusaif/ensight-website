@@ -3,7 +3,7 @@ import Diary from '../Diary'
 
 describe('Diary Component', () => {
   describe('Liking Diary Button', () => {
-    it('should increases the like count by one and toggles checked state when like button is clicked', () => {
+    it('should increase the like count by one and toggles checked state when like button is clicked', () => {
       const initialLikes = 5
       render(<Diary likes={initialLikes} />)
 

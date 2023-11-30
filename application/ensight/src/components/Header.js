@@ -32,6 +32,7 @@ const Header = () => {
     const searchTerm = inputElement.value.trim()
 
     if (searchTerm) {
+      console.log(searchTerm)
       navigate(`/Browse?searchTerm=${searchTerm}`)
     } else {
       console.log('Input field is empty. Please enter a search term.')
@@ -46,11 +47,13 @@ const Header = () => {
         </button>
         <div className="HeaderMovieSearch HeaderSearch">
           <input
+            data-testid="search-input"
             className="HeaderSearchInput HeaderInput"
             type="text"
             placeholder="Search"
           />
           <button
+            data-testid="search-button"
             className="HeaderSearchButton HeaderButton"
             onClick={handleSearchClick}
           >

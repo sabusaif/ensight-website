@@ -2,52 +2,39 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import MovieLanding from '../MovieLanding'
 
 describe('MovieLanding Component', () => {
-  describe('Opening Review Popup', () => {
-    it('should open the Review Popup when the "Write a Review" button is clicked', () => {
+  describe('Opening Rating Popup', () => {
+    it('should open the Rating Popup when the "Rate" text is clicked', () => {
       render(<MovieLanding />)
 
-      const reviewButton = screen.getByTestId('open-review-button')
-      fireEvent.click(reviewButton)
+      const ratingButton = screen.getByTestId('open-rating-button')
+      fireEvent.click(ratingButton)
 
-      const reviewPopup = screen.getByTestId('review-popup')
-      expect(reviewPopup).toBeInTheDocument()
+      const ratingPopup = screen.getByTestId('rating-popup')
+      expect(ratingPopup).toBeInTheDocument()
     })
   })
 
-  describe('Submitting Review', () => {
-    it('should not close the Review Popup if submitted with a blank review', () => {
+  describe('Give a Movie a Rating', () => {
+    it('should close the pop up and print the rating', () => {
       render(<MovieLanding />)
 
-      const reviewButton = screen.getByTestId('open-review-button')
-      fireEvent.click(reviewButton)
+      const ratingButton = screen.getByTestId('open-rating-button')
+      fireEvent.click(ratingButton)
 
-      const reviewPopup = screen.getByTestId('review-popup')
-      expect(reviewPopup).toBeInTheDocument()
+      const ratingPopup = screen.getByTestId('rating-popup')
 
-      const submitButton = screen.getByTestId('submit-review-button')
-      fireEvent.click(submitButton)
+      const stars = screen.getAllByAltText('star-unfilled')
+      expect(stars.filter(star => star).length).toBe(5)
 
-      expect(reviewPopup).toBeInTheDocument()
-    })
+      const thirdStar = screen.getAllByAltText('star-unfilled')[2]
+      fireEvent.click(thirdStar)
+      const updatedStars = screen.getAllByAltText('star-filled')
 
-    it('should close the Review Popup after submitting a review', () => {
-      render(<MovieLanding />)
+      const rateButton = screen.getByTestId('submit-rating-button')
+      fireEvent.click(rateButton)
 
-      const reviewButton = screen.getByTestId('open-review-button')
-      fireEvent.click(reviewButton)
-
-      const reviewPopup = screen.getByTestId('review-popup')
-      expect(reviewPopup).toBeInTheDocument()
-
-      const reviewTextarea = screen.getByTestId('review-textarea')
-      fireEvent.change(reviewTextarea, {
-        target: { value: 'This is my review.' },
-      })
-
-      const submitButton = screen.getByTestId('submit-review-button')
-      fireEvent.click(submitButton)
-
-      expect(reviewPopup).not.toBeInTheDocument()
+      expect(updatedStars.filter(star => star).length).toBe(3)
+      expect(ratingPopup).not.toBeInTheDocument()
     })
   })
 })

@@ -17,7 +17,7 @@ const ReviewPopup = ({ title }) => {
 
   const handleReviewSubmit = () => {
     // Implement logic to handle the submitted review (e.g., send it to a server)
-    // console.log('Submitted Review:', { comment })
+    //console.log('Submitted Review:', { comment })
     // Close the modal after submitting
     if (comment.trim()) {
       closeModal()
@@ -28,22 +28,17 @@ const ReviewPopup = ({ title }) => {
 
   return (
     <div>
-      <button
-        data-testid="open-review-button"
-        className="create-list-button custom-button"
-        onClick={openModal}
-      >
+      <button className="create-list-button custom-button" onClick={openModal}>
         Write a Review
       </button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        ariaHideApp={false}
         contentLabel={`Review Popup for ${title}`}
         className="ReviewModal"
         overlayClassName="overlay"
       >
-        <div data-testid="review-popup" className="ReviewPopUp">
+        <div className="ReviewPopUp">
           <img
             className="MovieSymbol CloseSymbol"
             src={RedX}
@@ -58,7 +53,6 @@ const ReviewPopup = ({ title }) => {
               <h2 className="ReviewTitle">{title}</h2>
             </div>
             <textarea
-              data-testid="review-textarea"
               value={comment}
               onChange={e => setComment(e.target.value)}
               placeholder="Type your review here..."
@@ -66,7 +60,6 @@ const ReviewPopup = ({ title }) => {
               className="ReviewTextInput"
             />
             <button
-              data-testid="submit-review-button"
               className="Button ReviewButton"
               onClick={handleReviewSubmit}
             >
