@@ -17,7 +17,7 @@ const ReviewPopup = ({ title }) => {
 
   const handleReviewSubmit = () => {
     // Implement logic to handle the submitted review (e.g., send it to a server)
-    console.log('Submitted Review:', { comment })
+    // console.log('Submitted Review:', { comment })
     // Close the modal after submitting
     if (comment.trim()) {
       closeModal()

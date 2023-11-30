@@ -5,8 +5,15 @@ import SlideIn from '../SlideIn'
 import StarFilled from '../../assets/images/star_filled.png'
 import StarUnfilled from '../../assets/images/star_unfilled.png'
 
-const Diary = ({ likes, starsFill }) => {
+const Diary = ({ likes: initialLikes, starsFill }) => {
+  const [likes, setLikes] = useState(initialLikes)
   const [startAnimation, setStartAnimation] = useState(false)
+  const [isChecked, setIsChecked] = useState(false)
+
+  const handleLikeButtonClick = () => {
+    setLikes(prevLikes => (isChecked ? prevLikes - 1 : prevLikes + 1))
+    setIsChecked(prevChecked => !prevChecked)
+  }
 
   const renderRatingStars = () => {
     const stars = []
@@ -54,8 +61,8 @@ const Diary = ({ likes, starsFill }) => {
           <h2>Movie Title</h2>
         </div>
         <div className="DiaryRight">
-          <LikeButton />
-          <h5>
+          <LikeButton onLikeButtonClick={handleLikeButtonClick} />
+          <h5 data-testid="likes-count">
             {likes} {likes === 1 ? 'like' : 'likes'}
           </h5>
           <div className="DiaryRateContent">

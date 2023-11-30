@@ -1,16 +1,20 @@
 import React, { useState } from 'react'
 import '../assets/styles/components/LikeButton.css'
 
-const LikeButton = ({ customStyle }) => {
+const LikeButton = ({ customStyle, onLikeButtonClick }) => {
   const [isChecked, setIsChecked] = useState(false)
 
-  const handleCheckboxChange = event => {
-    setIsChecked(event.target.checked)
+  const handleCheckboxChange = () => {
+    setIsChecked(prevChecked => !prevChecked)
+    if (onLikeButtonClick != null) {
+        onLikeButtonClick()
+    }
   }
 
   return (
     <div className="heart-container" title="Like" style={customStyle}>
       <input
+        data-testid="like-button"
         type="checkbox"
         className="checkbox Give-It-An-Id"
         checked={isChecked}

@@ -20,7 +20,7 @@ const SlideIn = ({ children, startAnimation }) => {
     marginTop: startAnimation ? '0' : '-175px',
   }
 
-  console.log(contentHeight)
+  // console.log(contentHeight)
 
   return (
     <div className="slide-in" style={transitionProperties} ref={containerRef}>

@@ -3,19 +3,32 @@ import DisplayUser from '../DisplayUser'
 
 describe('DisplayUser Component', () => {
   describe('Rendering DisplayUserResults Component', () => {
-    it('should have a list of users with follow buttons when DisplayUser page is loaded', () => {
-      render(<DisplayUser />)
+    const numberOfTests = 5; // Change this to the number of tests you want
+  
+    for (let i = 1; i <= numberOfTests; i++) {
+      it(`should have a follow button for user ${i}`, () => {
+        render(<DisplayUser />);
+  
+        const displayUserResults = screen.getByTestId('display-user-results');
+        expect(displayUserResults).toBeInTheDocument();
+  
+        const followButton = screen.getByTestId(`follow-button-${i}`);
+        expect(followButton).toBeInTheDocument();
+      });
+    }
 
-      const displayUserResults = screen.getByTestId('display-user-results')
-      expect(displayUserResults).toBeInTheDocument()
+    it(`should not have a follow button for user 6 or above`, () => {
+      render(<DisplayUser />);
 
-      const userNumberToTest = 1
-      const followButton = screen.getByTestId(
-        `follow-button-${userNumberToTest}`
-      )
-      expect(followButton).toBeInTheDocument()
-    })
-  })
+      const displayUserResults = screen.getByTestId('display-user-results');
+      expect(displayUserResults).toBeInTheDocument();
+
+      const userNumberToTest = 6
+
+      expect(screen.queryByTestId(`follow-button-${userNumberToTest}`)).not.toBeInTheDocument();
+    });
+  });
+  
 
   describe('Handle Toggle Follow', () => {
     it('should change Follow + to Following and vice versa', () => {
