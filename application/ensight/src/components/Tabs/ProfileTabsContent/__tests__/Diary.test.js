@@ -1,9 +1,11 @@
+import React from 'react'
 import { render, fireEvent, screen } from '@testing-library/react'
-import Diary from '../Diary'
+import '@testing-library/jest-dom/extend-expect'
+import Diary from '../../Diary'
 
 describe('Diary Component', () => {
   describe('Liking Diary Button', () => {
-    it('should increase the like count by one and toggles checked state when like button is clicked', () => {
+    it('should increases the like count by one and toggles checked state when like button is clicked', () => {
       const initialLikes = 5
       render(<Diary likes={initialLikes} />)
 

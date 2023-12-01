@@ -7,7 +7,7 @@ const LikeButton = ({ customStyle, onLikeButtonClick }) => {
   const handleCheckboxChange = () => {
     setIsChecked(prevChecked => !prevChecked)
     if (onLikeButtonClick != null) {
-        onLikeButtonClick()
+      onLikeButtonClick()
     }
   }
 
