@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import Diary from '../../Diary'
+import Diary from '../Diary'
 
 describe('Diary Component', () => {
   describe('Liking Diary Button', () => {

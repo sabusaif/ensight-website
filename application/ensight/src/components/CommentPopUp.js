@@ -67,10 +67,10 @@ const ReviewPopup = ({ title }) => {
             />
             <button
               data-testid="submit-comment-button"
-              className="Button ReviewButton"
+              className="Button ReviewButton CommentButton"
               onClick={handleReviewSubmit}
             >
-              Submit Review
+              Submit Comment
             </button>
           </div>
         </div>

@@ -54,6 +54,10 @@
   font-size: 25px;
 }
 
+.CommentButton {
+  width: 250px; 
+}
+
 .CloseSymbol {
   align-self: flex-end;
   margin-right: 10px;
