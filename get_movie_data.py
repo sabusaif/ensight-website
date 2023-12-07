@@ -13,7 +13,8 @@ headers = {
     "Authorization": "Bearer " + token,
 }
 
-with open("./movie_ids.txt", "r") as f:
+# with open("./movie_ids.txt", "r") as f:
+with open("./urls_over3.txt", "r") as f:  # for partial dataset
     ids = f.read().splitlines()
 
 IDS_LEN = len(ids)
@@ -57,7 +58,7 @@ async def execute_fetcher_tasks():
 
 async def create_tasks(
     session: aiohttp.ClientSession,
-    ids: List[int],
+    ids: List[str],
 ) -> List[asyncio.Task]:
     task_list = []
     for id in ids:
@@ -67,12 +68,13 @@ async def create_tasks(
     return task_list
 
 
-async def fetch_and_save_data(session: aiohttp.ClientSession, id: int):
+async def fetch_and_save_data(session: aiohttp.ClientSession, id):
     data = None
     while data is None:
         try:
             async with session.get(
-                f"https://api.tmdb.org/3/movie/{id}?append_to_response=videos,credits,reviews&language=en-US",
+                # f"https://api.tmdb.org/3/movie/{id}?append_to_response=videos,credits,reviews&language=en-US",
+                id,
                 raise_for_status=True,
             ) as response:
                 data = await response.json()
@@ -81,7 +83,6 @@ async def fetch_and_save_data(session: aiohttp.ClientSession, id: int):
             if e.status == 404:
                 return None
             await asyncio.sleep(1)  # back off to respect 429 or resolve 504
-
     movie = {
         "model": "app.movie",
         "pk": data["id"],
@@ -166,7 +167,7 @@ async def fetch_and_save_data(session: aiohttp.ClientSession, id: int):
     except KeyError:
         print(f"Error: {id} -- reviews")
         reviews = None
-    printProgressBar(int(id), 1212783, prefix="Fetch \t")
+    # printProgressBar(int(id), 1212783, prefix="Fetch \t")
     return (movie, credits, reviews)
 
 
