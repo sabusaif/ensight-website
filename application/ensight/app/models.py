@@ -111,7 +111,7 @@ class Movie(models.Model):
     popularity = models.DecimalField(
         null=True,
         decimal_places=4,
-        max_digits=7,
+        max_digits=10,
     )
 
     def __str__(self):
@@ -136,6 +136,18 @@ class Person(models.Model):
     biography = models.TextField(null=True)
     known_for = models.CharField(max_length=64, null=True)
     popularity = models.DecimalField(null=True, decimal_places=3, max_digits=7)
+    
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["name"],
+                name="person_name_idx",
+            ),
+            models.Index(
+                fields=["popularity"],
+                name="person_popularity_idx",
+            ),
+        ]
 
 
 class CreditList(models.Model):
@@ -157,6 +169,14 @@ class CreditList(models.Model):
         null=True,
         default=None,
     )
+    
+    class Meta:
+        indexes = [
+            models.Index(
+                fields=["role"],
+                name="credit_role_idx",
+            ),
+        ]
 
 
 class Review(models.Model):
@@ -202,6 +222,12 @@ class Review(models.Model):
             models.UniqueConstraint(
                 fields=["author", "movie"],
                 name="unique_review",
+            ),
+        ]
+        indexes = [
+            models.Index(
+                fields=["created_at"],
+                name="review_created_idx",
             ),
         ]
 
