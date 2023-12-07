@@ -165,7 +165,7 @@ class CreditList(models.Model):
         max_length=128,
     )
     role = models.CharField(
-        max_length=128,
+        max_length=512,
         null=True,
         default=None,
     )
